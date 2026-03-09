@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World News - 404News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+   body {
+        padding: 0;
+        margin: 0;
+        background-color: #f5f5f5;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+   header{
+        width: 100%;
+        background-color: #001F5B;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: #fff;
+        box-sizing: border-box;
+    }
+
+   .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+    }
+    .logo h1{
+        color: #FFFFFF;
+        font-size: 26px;
+        font-weight: bold;
+        margin: 0;
+    }
+    .menu {
+        list-style: none;
+        display: flex;
+        background-color: #001F5B;
+        padding: 0;
+        margin: 0;
+    }
+    .menu li a {
+        display: block;
+        padding: 10px 15px;
+        color: #FFFFFF;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s, background 0.3s;
+    }
+    .menu li a:hover {
+        color: #001F5B;
+        background-color: #FFFFFF;
+        border-radius: 4px;
+    }
+    .menu li a.active {
+        color: #001F5B;
+        background-color: #FFFFFF;
+        border-radius: 4px;
+    }
+    .search{
+        position: relative;
+    }
+    .search i{
+        font-size: 20px;
+        cursor: pointer;
+        color: #FFFFFF;
+    }
+    .search input{
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 6px 10px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        width: 200px;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+    .search input:focus{
+        outline: none;
+        border: 2px solid #564be8;
+    }
+    
+    .page-title {
+        width: 90%;
+        margin: 25px auto 0;
+        background: #FFFFFF;
+        padding: 20px 25px;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+    
+    .page-title h1 {
+        margin: 0;
+        color: #001F5B;
+        font-size: 32px;
+        border-left: 6px solid #001F5B;
+        padding-left: 15px;
+    }
+    
+    .container {
+        width: 90%;
+        margin: 25px auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 25px;
+    }
+    .latest-news {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        align-self: start;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        max-height: 450px;
+        overflow-y: auto;
+    }
+    .latest-news h2 {
+        border-left: 4px solid #001F5B;
+        padding-left: 15px;
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+    .latest-item {
+        margin-bottom: 13px;
+    }
+    .latest-item a {
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .latest-item a:hover {
+        color: #001F5B;
+    }
+    footer {
+        background-color: #001F5B;
+        color: #FFFFFF;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    footer .footer-follow a {
+        color: #FFFFFF;
+        margin-right: 10px;
+        text-decoration: none;
+    }
+
+    footer .footer-follow a:hover {
+        color: #FFFFFF;
+    }
+    .main-news {
+        background: #FFFFFF;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+    }
+    .main-news::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.05);
+        opacity: 0;
+        transition: transform 0.4s ease;
+    }
+    .main-news img {
+        width: 100%;
+        border-radius: 5px;
+        transition: transform 0.4s ease;
+    }
+    .main-news:hover img {
+        transform: scale(1.04);
+    }
+    .main-news h1 {
+        transition: color 0.3s;
+        font-size: 28px;
+    }
+    .main-news:hover h1 {
+        color: #001F5B;
+    }
+    .main-news p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
+    .read-more {
+        text-decoration: none;
+        color: #001F5B;
+        font-weight: bold;
+    }
+    .read-more:hover {
+        text-decoration: underline;
+    }
+    
+    .news-grid {
+        display: grid;
+        gap: 20px;
+    }
+    
+    .news-article {
+        background: #FFFFFF;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 15px;
+    }
+    
+    .news-article:hover {
+        transform: translateY(-4px);
+    }
+    
+    .news-article img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+    
+    .news-article-content {
+        padding: 15px 15px 15px 0;
+    }
+    
+    .news-article h3 {
+        font-size: 18px;
+        margin: 0 0 10px 0;
+        color: #000;
+    }
+    
+    .news-article h3:hover {
+        color: #001F5B;
+    }
+    
+    .news-article p {
+        font-size: 14px;
+        color: #666;
+        margin: 0 0 10px 0;
+        line-height: 1.5;
+    }
+    
+    .news-meta {
+        font-size: 12px;
+        color: #999;
+    }
+
+    .latest-sub-news {
+        max-height: 260px;
+        overflow-y: auto;
+    }
+
+    .latest-sub-item {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        cursor: pointer;
+    }
+
+    .latest-sub-item img {
+        width: 70px;
+        height: 55px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .latest-sub-item p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.4;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .latest-sub-item p:hover {
+        color: #001F5B;
+    }
+
+</style>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="logo">
+                <h1><a href="news.html" style="color: #FFFFFF; text-decoration: none;">404News</a></h1>
+            </div>
+
+            <div class="main-menu"> 
+                <ul class="menu">
+                    <li><a href="world.html">World</a></li>
+                    <li><a href="politics.html">Politics</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="health.html">Health</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="weather.html">Weather</a></li>
+                </ul>
+            </div>
+
+            <div class="search">
+                <i class="fas fa-search" id="searchIcon"></i>
+                <input type="text" id="searchInput" placeholder="Search 404News...">
+            </div>
+        </div> 
+    </header>
+
+    <div class="page-title">
+        <h1>🌍 World News</h1>
+    </div>
+
+    <section class="container">
+        <div class="main-news">
+            <img src="https://www.un.org/sites/un2.un.org/files/field/image/2025/02/palestinian_family_wfp_jan._20251.jpg" alt="UN Assembly">
+            <h1>United Nations addresses global humanitarian crisis</h1>
+            <p>
+                The United Nations General Assembly convened today to discuss urgent humanitarian needs across multiple regions. World leaders emphasized the importance of international cooperation and immediate action to address food insecurity, displacement, and access to essential services.
+                <a href="#" class="read-more">Read more →</a>
+            </p>
+        </div>  
+
+        <aside class="latest-news">     
+            <h2>Breaking World News</h2>
+            
+            <div class="latest-item">
+                <a href="#">🌐 G20 Summit concludes with new trade agreements</a>
+            </div>
+            <div class="latest-item">      
+                <a href="#">🌐 European Union announces climate initiative</a>
+            </div>
+            <div class="latest-item">
+                <a href="#">🌐 Asia-Pacific region sees economic growth</a>
+            </div>
+            <div class="latest-item">
+                <a href="#">🌐 International aid reaches affected regions</a>
+            </div>
+            <div class="latest-item">
+                <a href="#">🌐 Global peace talks show promising results</a>
+            </div>
+            <div class="latest-item">
+                <a href="#">🌐 World leaders meet for climate conference</a>
+            </div>
+            <div class="latest-item">
+                <a href="#">🌐 UNESCO recognizes new heritage sites</a>
+            </div>
+            <div class="latest-item">
+                <a href="#">🌐 International space collaboration announced</a>
+            </div>
+            
+        </aside>
+    </section>
+
+    <section class="container">
+        <div class="news-grid">
+            <div class="news-article">
+                <img src="https://wmo.int/sites/default/files/styles/featured_image_x1_768x512/public/2023-12/53394930893_784f246ecf_4k.png?h=ac778ff2&itok=Ew0iYoa8" alt="Climate Action">
+                <div class="news-article-content">
+                    <h3>Nations commit to ambitious climate targets at COP summit</h3>
+                    <p>Countries from around the globe have pledged to accelerate their transition to renewable energy and reduce carbon emissions by 2030. The agreement represents a significant step forward in international climate cooperation.</p>
+                    <div class="news-meta">📅 2 hours ago | 🌍 International</div>
+                </div>
+            </div>
+
+            <div class="news-article">
+                <img src="https://i.huffpost.com/gen/1744967/thumbs/o-POVERTY-CHILDREN-facebook.jpg" alt="Economic Development">
+                <div class="news-article-content">
+                    <h3>World Bank announces poverty reduction initiative</h3>
+                    <p>A new $50 billion fund aims to support developing nations in building sustainable infrastructure and creating economic opportunities. The program focuses on education, healthcare, and technology access.</p>
+                    <div class="news-meta">📅 5 hours ago | 💰 Economy</div>
+                </div>
+            </div>
+
+            <div class="news-article">
+                <img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41562-021-01122-8/MediaObjects/41562_2021_1122_Fig1_HTML.png" alt="Health Research">
+                <div class="news-article-content">
+                    <h3>WHO declares success in global vaccination campaign</h3>
+                    <p>The World Health Organization reports that collaborative efforts have led to improved vaccine access in underserved regions. Health officials emphasize the importance of continued international support.</p>
+                    <div class="news-meta">📅 8 hours ago | 🏥 Health</div>
+                </div>
+            </div>
+
+            <div class="news-article">
+                <img src="https://ilac.com/wp-content/uploads/2025/06/image2-2.webp" alt="Cultural Exchange">
+                <div class="news-article-content">
+                    <h3>International cultural exchange program expands globally</h3>
+                    <p>UNESCO's new initiative brings together artists, educators, and innovators from 50 countries to promote understanding and preserve cultural heritage in the digital age.</p>
+                    <div class="news-meta">📅 12 hours ago | 🎭 Culture</div>
+                </div>
+            </div>
+
+            <div class="news-article">
+                <img src="https://cloudfront-us-east-2.images.arcpublishing.com/reuters/SFKCH3O6FZPF3KHJB6A64OJSEQ.jpg" alt="Peace Agreement">
+                <div class="news-article-content">
+                    <h3>Historic peace agreement signed after years of negotiations</h3>
+                    <p>Regional leaders have committed to ending decades of conflict through a comprehensive peace framework. International mediators praise the breakthrough as a model for conflict resolution.</p>
+                    <div class="news-meta">📅 1 day ago | ☮️ Peace</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="latest-sub-news">
+            <div class="latest-sub-item">
+                <img src="https://www.earth-changers.com/wp-content/uploads/2022/12/UN-Biodiversity-COP15-1162x684-1.png" alt="Biodiversity">
+                <p>Global biodiversity summit addresses species protection</p>
+            </div>
+
+            <div class="latest-sub-item">
+                <img src="https://tracepathlike.com/assets/images/pages/tech-giants-pledge-to-close-the-digital-divide-by-2030.png" alt="Technology">
+                <p>International tech giants pledge digital inclusion efforts</p>
+            </div>
+
+            <div class="latest-sub-item">
+                <img src="https://cdn.prod.website-files.com/636d12da47acd72a0d22320c/67c806d7bc3a880dbc1ae501_2.%20Nouvelles%20routes%20commerciales%20MENA.PNG" alt="Maritime">
+                <p>New maritime cooperation enhances trade routes</p>
+            </div>
+
+            <div class="latest-sub-item">
+                <img src="https://www.tbsnews.net/sites/default/files/styles/big_3/public/images/2025/10/26/rally.jpeg" alt="Education">
+                <p>UNESCO launches global literacy campaign</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">
+            <h1><a href="news.html" style="color: #FFFFFF; text-decoration: none;">404News</a></h1>
+        </div>
+        <div class="footer-follow">
+            <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="https://www.x.com/"><i class="fab fa-x-twitter"></i> X</a>
+            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i> Instagram</a>
+        </div>
+
+        <p>© 2025 404News Website | Educational Project</p>
+    </footer>
+    <script>
+        const searchIcon = document.getElementById("searchIcon");
+        const searchInput = document.getElementById("searchInput");
+
+        searchIcon.addEventListener("click", () => {
+            if (searchInput.style.display === "block") {
+                searchInput.style.display = "none";
+            } else {
+                searchInput.style.display = "block";
+                searchInput.focus();
+            }
+        });
+    </script>
+</body>
+</html>

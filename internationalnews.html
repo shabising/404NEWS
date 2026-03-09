@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>International News - 404News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+        background-color: #f5f5f5;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    header {
+        width: 100%;
+        background-color: #001F5B;
+        color: #fff;
+        box-sizing: border-box;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+    }
+
+    .logo h1 {
+        color: #FFFFFF;
+        font-size: 26px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .menu {
+        list-style: none;
+        display: flex;
+        background-color: #001F5B;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+    }
+
+    .menu li {
+        position: relative;
+    }
+
+    .menu li a {
+        display: block;
+        padding: 10px 15px;
+        color: #FFFFFF;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s, background 0.3s;
+    }
+
+    .menu li a:hover,
+    .menu li a.active {
+        color: #001F5B;
+        background-color: #FFFFFF;
+        border-radius: 4px;
+    }
+
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-title {
+        cursor: pointer;
+        padding: 10px 15px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        color: #FFFFFF;
+        font-weight: bold;
+        display: block;
+    }
+
+    .dropdown:hover .dropdown-title {
+        background-color: #FFFFFF;
+        color: #001F5B;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        min-width: 200px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        border-radius: 10px;
+        overflow: hidden;
+        z-index: 1000;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown-content a {
+        color: #FFFFFF;
+        background-color: #001F5B;
+        padding: 10px 15px;
+        display: block;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        font-weight: normal;
+    }
+
+    .dropdown-content a:hover {
+        background: #FFFFFF;
+        color: #001F5B;
+    }
+
+    .search {
+        position: relative;
+    }
+
+    .search i {
+        font-size: 20px;
+        cursor: pointer;
+        color: #FFFFFF;
+    }
+
+    .search input {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 6px 10px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        width: 200px;
+        box-sizing: border-box;
+    }
+
+    .search input:focus {
+        outline: none;
+        border: 2px solid #564be8;
+    }
+
+    .page-title {
+        width: 90%;
+        margin: 25px auto 0;
+        background: #FFFFFF;
+        padding: 20px 25px;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    .page-title h1 {
+        margin: 0;
+        color: #001F5B;
+        font-size: 32px;
+        border-left: 6px solid #001F5B;
+        padding-left: 15px;
+    }
+
+    .breadcrumb {
+        width: 90%;
+        margin: 15px auto 0;
+        font-size: 13px;
+        color: #666;
+    }
+
+    .breadcrumb a {
+        color: #001F5B;
+        text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+        text-decoration: underline;
+    }
+
+    .container {
+        width: 90%;
+        margin: 25px auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 25px;
+    }
+
+    .main-news {
+        background: #FFFFFF;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .main-news img {
+        width: 100%;
+        border-radius: 5px;
+        transition: transform 0.4s ease;
+    }
+
+    .main-news:hover img {
+        transform: scale(1.04);
+    }
+
+    .main-news h1 {
+        transition: color 0.3s;
+        font-size: 26px;
+    }
+
+    .main-news:hover h1 {
+        color: #001F5B;
+    }
+
+    .main-news p {
+        font-size: 15px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
+
+    .read-more {
+        text-decoration: none;
+        color: #001F5B;
+        font-weight: bold;
+    }
+
+    .read-more:hover {
+        text-decoration: underline;
+    }
+
+    .latest-news {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        align-self: start;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        max-height: 450px;
+        overflow-y: auto;
+    }
+
+    .latest-news h2 {
+        border-left: 4px solid #001F5B;
+        padding-left: 15px;
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+
+    .latest-item {
+        margin-bottom: 13px;
+    }
+
+    .latest-item a {
+        text-decoration: none;
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .latest-item a:hover {
+        color: #001F5B;
+    }
+
+    .news-grid {
+        display: grid;
+        gap: 20px;
+    }
+
+    .news-article {
+        background: #FFFFFF;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 15px;
+    }
+
+    .news-article:hover {
+        transform: translateY(-4px);
+    }
+
+    .news-article img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .news-article-content {
+        padding: 15px 15px 15px 0;
+    }
+
+    .news-article h3 {
+        font-size: 18px;
+        margin: 0 0 10px 0;
+        color: #000;
+    }
+
+    .news-article h3:hover {
+        color: #001F5B;
+    }
+
+    .news-article p {
+        font-size: 14px;
+        color: #666;
+        margin: 0 0 10px 0;
+        line-height: 1.5;
+    }
+
+    .news-meta {
+        font-size: 12px;
+        color: #999;
+    }
+
+    .latest-sub-news {
+        max-height: 260px;
+        overflow-y: auto;
+    }
+
+    .latest-sub-item {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        cursor: pointer;
+    }
+
+    .latest-sub-item img {
+        width: 70px;
+        height: 55px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .latest-sub-item p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.4;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .latest-sub-item p:hover {
+        color: #001F5B;
+    }
+
+    footer {
+        background-color: #001F5B;
+        color: #FFFFFF;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    footer .footer-follow a {
+        color: #FFFFFF;
+        margin-right: 10px;
+        text-decoration: none;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="logo">
+                <h1><a href="news.html" style="color: #FFFFFF; text-decoration: none;">404News</a></h1>
+            </div>
+            <div class="main-menu">
+                <ul class="menu">
+                    <li><a href="world.html">World</a></li>
+                    <li class="dropdown">
+                        <span class="dropdown-title">Politics ▾</span>
+                        <div class="dropdown-content">
+                            <a href="localnews.html">Local News</a>
+                            <a href="internationalnews.html" style="background:#0a3080;">International News</a>
+                        </div>
+                    </li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="health.html">Health</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="weather.html">Weather</a></li>
+                </ul>
+            </div>
+            <div class="search">
+                <i class="fas fa-search" id="searchIcon"></i>
+                <input type="text" id="searchInput" placeholder="Search 404News...">
+            </div>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <a href="politics.html">🏛️ Politics</a> &rsaquo; 🌐 International News
+    </div>
+
+    <div class="page-title">
+        <h1>🌐 International Politics</h1>
+    </div>
+
+    <section class="container">
+        <div class="main-news">
+            <img src="https://education.cfr.org/sites/default/files/images/photo/2024/07/nuclear-proliferation_nuclear-world_supporting_nfwzs.cfrelogo%20%281%29.png" alt="International Summit">
+            <h1>World powers agree on new nuclear non-proliferation treaty</h1>
+            <p>
+                In a historic breakthrough, five major nuclear-armed nations signed a renewed commitment to the nuclear non-proliferation framework at a summit in Geneva. Diplomats called it a step toward global disarmament, with verification mechanisms to be overseen by an independent international body.
+                <a href="#" class="read-more">Read more →</a>
+            </p>
+        </div>
+        <aside class="latest-news">
+            <h2>🌐 International Headlines</h2>
+            <div class="latest-item"><a href="#">🌐 G7 leaders issue joint statement on economy</a></div>
+            <div class="latest-item"><a href="#">🌐 Ceasefire agreement holds in conflict region</a></div>
+            <div class="latest-item"><a href="#">🌐 International court rules on disputed territory</a></div>
+            <div class="latest-item"><a href="#">🌐 African Union calls for debt relief for members</a></div>
+            <div class="latest-item"><a href="#">🌐 ASEAN summit focuses on South China Sea</a></div>
+            <div class="latest-item"><a href="#">🌐 European Parliament debates border reform</a></div>
+            <div class="latest-item"><a href="#">🌐 UN envoy visits conflict zones in Middle East</a></div>
+            <div class="latest-item"><a href="#">🌐 NATO announces increased defense spending</a></div>
+        </aside>
+    </section>
+
+    <section class="container">
+        <div class="news-grid">
+            <div class="news-article">
+                <img src="https://img.etimg.com/thumb/width-1200,height-900,imgsize-312104,resizemode-75,msid-122084886/news/international/world-news/eu-leaders-meet-to-discuss-tougher-russia-sanctions-us-tariffs-middle-east-conflicts.jpg" alt="EU">
+                <div class="news-article-content">
+                    <h3>European Union tightens sanctions on authoritarian regimes</h3>
+                    <p>The EU Council voted to expand targeted sanctions against officials in several countries accused of human rights violations, freezing assets and banning travel for over 200 individuals.</p>
+                    <div class="news-meta">📅 1 hour ago | 🌐 International</div>
+                </div>
+            </div>
+            <div class="news-article">
+                <img src="https://www.bilaterals.org/IMG/jpg/img_15112020_1.jpg" alt="Asia Pacific">
+                <div class="news-article-content">
+                    <h3>Asia-Pacific nations form new economic partnership</h3>
+                    <p>Twelve nations across the Asia-Pacific region signed a sweeping trade and investment agreement expected to boost regional GDP by 2% over the next decade.</p>
+                    <div class="news-meta">📅 4 hours ago | 🌐 International</div>
+                </div>
+            </div>
+            <div class="news-article">
+                <img src="https://media.cnn.com/api/v1/images/stellar/prod/gettyimages-2217651255.jpg?c=original" alt="Peace talks">
+                <div class="news-article-content">
+                    <h3>Peace talks resume between two long-conflicted nations</h3>
+                    <p>Mediated by a neutral third party, delegations from both nations returned to the negotiating table after a two-year pause, with observers cautiously optimistic about progress.</p>
+                    <div class="news-meta">📅 8 hours ago | 🌐 International</div>
+                </div>
+            </div>
+            <div class="news-article">
+                <img src="https://static01.nyt.com/images/2024/02/29/opinion/29stockman/29stockman-videoSixteenByNineJumbo1600.jpg" alt="Trade">
+                <div class="news-article-content">
+                    <h3>WTO opens new round of global trade dispute talks</h3>
+                    <p>The World Trade Organization initiated a fresh round of multilateral trade discussions aimed at resolving long-standing disputes over tariffs, subsidies, and intellectual property rights.</p>
+                    <div class="news-meta">📅 12 hours ago | 🌐 International</div>
+                </div>
+            </div>
+        </div>
+        <div class="latest-sub-news">
+            <div class="latest-sub-item">
+                <img src="https://i.guim.co.uk/img/media/fea2573d22f1c06408ab83909e67e31c7e13895a/1682_64_6466_5173/master/6466.jpg?width=1200&quality=85&auto=format&fit=max&s=c293ff65e3cb55a8520fd2a801be2ed0" alt="">
+                <p>NATO announces increased defense spending commitments from member states</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://dims.apnews.com/dims4/default/e1922ed/2147483647/strip/true/crop/5616x3744+0+0/resize/599x399!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2Fc6%2Fb1%2Fe4dfc8a6580f87a6da633d1b57d6%2F67a2221c0eaa434aadea0b105ca8825a" alt="">
+                <p>South America bloc agrees on shared environmental policy framework</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://m.eyeofriyadh.com/news_images/2024/05/f2640900c7ee.jpeg" alt="">
+                <p>Middle East leaders participate in economic development forum</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://cdnuploads.aa.com.tr/uploads/Contents/2023/11/25/thumbs_b_c_f8db71fe04e7eec50f71cceee2be6a02.jpg?v=081438" alt="">
+                <p>African nations push for permanent UN Security Council seat</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">
+            <h1><a href="news.html" style="color: #FFFFFF; text-decoration: none;">404News</a></h1>
+        </div>
+        <div class="footer-follow">
+            <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="https://www.x.com/"><i class="fab fa-x-twitter"></i> X</a>
+            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i> Instagram</a>
+        </div>
+        <p>© 2025 404News Website | Educational Project</p>
+    </footer>
+    <script>
+        const searchIcon = document.getElementById("searchIcon");
+        const searchInput = document.getElementById("searchInput");
+        searchIcon.addEventListener("click", () => {
+            searchInput.style.display = searchInput.style.display === "block" ? "none" : "block";
+            if (searchInput.style.display === "block") searchInput.focus();
+        });
+    </script>
+</body>
+</html>

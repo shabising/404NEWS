@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business News - 404News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+   body {
+        padding: 0;
+        margin: 0;
+        background-color: #f5f5f5;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+   header {
+        width: 100%;
+        background-color: #001F5B;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: #fff;
+        box-sizing: border-box;
+    }
+   .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+    }
+    .logo h1 { 
+        color: #FFFFFF; 
+        font-size: 26px; 
+        font-weight: bold; 
+        margin: 0; 
+    }
+    .menu { 
+        list-style: none; 
+        display: flex; 
+        background-color: #001F5B; 
+        padding: 0; 
+        margin: 0; 
+    }
+    .menu li a { 
+        display: block; 
+        padding: 10px 15px; 
+        color: #FFFFFF; 
+        text-decoration: none; 
+        font-weight: bold; 
+        transition: color 0.3s, background 0.3s; 
+    }
+    .menu li a:hover { 
+        color: #001F5B; 
+        background-color: #FFFFFF; 
+        border-radius: 4px; 
+    }
+    .menu li a.active { 
+        color: #001F5B; 
+        background-color: #FFFFFF; 
+        border-radius: 4px; 
+    }
+    .search { 
+        position: relative; 
+    }
+    .search i { 
+        font-size: 20px; 
+        cursor: pointer; 
+        color: #FFFFFF; 
+    }
+    .search input { 
+        display: none; 
+        position: absolute; 
+        right: 0; 
+        top: 0; 
+        padding: 6px 10px; 
+        border-radius: 3px; 
+        border: 1px solid #ccc; 
+        width: 200px; 
+        box-sizing: border-box; 
+        transition: all 0.3s ease; 
+    }
+    .search input:focus { 
+        outline: none; 
+        border: 2px solid #564be8;
+    }
+
+    .page-title {
+        width: 90%; 
+        margin: 25px auto 0; 
+        background: #FFFFFF; 
+        padding: 20px 25px; 
+        border-radius: 5px; 
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1); 
+    }
+    .page-title h1 { 
+        margin: 0; 
+        color: #001F5B; 
+        font-size: 32px; 
+        border-left: 6px solid #001F5B; 
+        padding-left: 15px; 
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .ticker-wrap {
+        width: 90%;
+        margin: 20px auto 0;
+        background: #001F5B;
+        border-radius: 5px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    .ticker-label {
+        background: #f0a500;
+        color: #001F5B;
+        font-weight: bold;
+        font-size: 13px;
+        padding: 10px 16px;
+        white-space: nowrap;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        flex-shrink: 0;
+    }
+    .ticker-content {
+        overflow: hidden;
+        flex: 1;
+    }
+    .ticker-items {
+        display: flex;
+        gap: 50px;
+        animation: ticker 30s linear infinite;
+        white-space: nowrap;
+        padding: 10px 20px;
+    }
+    .ticker-items:hover { animation-play-state: paused; }
+    @keyframes ticker {
+        0%   { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    .ticker-item {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 13px;
+        color: #FFFFFF;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+    .ticker-item .t-name {
+        font-weight: bold;
+    }
+
+    .ticker-item .t-price {
+        opacity: 0.9;
+    }
+
+    .ticker-item .t-change.up {
+        color: #4cff91;
+        font-weight: bold;
+    }
+
+    .ticker-item .t-change.down {
+        color: #ff6b6b;
+        font-weight: bold;
+    }
+    .container {
+        width: 90%;
+        margin: 25px auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 25px;
+    }
+    .main-news {
+        background: #FFFFFF;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        overflow: hidden;
+        cursor: pointer;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    .main-news img {
+        width: 100%;
+        border-radius: 5px;
+        transition: transform 0.4s ease;
+    }
+
+    .main-news:hover img {
+        transform: scale(1.04);
+    }
+
+    .main-news h1 {
+        transition: color 0.3s;
+        font-size: 28px;
+    }
+
+    .main-news:hover h1 {
+        color: #001F5B;
+    }
+
+    .main-news p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
+
+    .read-more {
+        text-decoration: none;
+        color: #001F5B;
+        font-weight: bold;
+    }
+
+    .read-more:hover {
+        text-decoration: underline;
+    }
+    .latest-news {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        align-self: start;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        max-height: 450px;
+        overflow-y: auto;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    .latest-news h2 {
+        border-left: 4px solid #001F5B;
+        padding-left: 15px;
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+
+    .latest-item {
+        margin-bottom: 13px;
+    }
+
+    .latest-item a {
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .latest-item a:hover {
+        color: #001F5B;
+    }
+
+    .news-grid {
+        display: grid;
+        gap: 20px;
+    }
+
+    .news-article {
+        background: #FFFFFF;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 15px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    .news-article:hover {
+        transform: translateY(-4px);
+    }
+
+    .news-article img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .news-article-content {
+        padding: 15px 15px 15px 0;
+    }
+
+    .news-article h3 {
+        font-size: 18px;
+        margin: 0 0 10px 0;
+        color: #000;
+    }
+
+    .news-article h3:hover {
+        color: #001F5B;
+    }
+
+    .news-article p {
+        font-size: 14px;
+        color: #666;
+        margin: 0 0 10px 0;
+        line-height: 1.5;
+    }
+
+    .news-meta {
+        font-size: 12px;
+        color: #999;
+    }
+    .latest-sub-news {
+        max-height: 260px;
+        overflow-y: auto;
+    }
+
+    .latest-sub-item {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        cursor: pointer;
+    }
+
+    .latest-sub-item img {
+        width: 70px;
+        height: 55px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .latest-sub-item p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.4;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .latest-sub-item p:hover {
+        color: #001F5B;
+    }
+    footer {
+        background-color: #001F5B;
+        color: #FFFFFF;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 30px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    footer .footer-follow a {
+        color: #FFFFFF;
+        margin-right: 10px;
+        text-decoration: none;
+    }
+
+    footer .footer-follow a:hover {
+        color: #ccc;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="logo">
+                <h1><a href="news.html" style="color: #FFFFFF; text-decoration: none;">404News</a></h1>
+            </div>
+            <div class="main-menu">
+                <ul class="menu">
+                    <li><a href="world.html">World</a></li>
+                    <li><a href="politics.html">Politics</a></li>
+                    <li><a href="business.html" class="active">Business</a></li>
+                    <li><a href="health.html">Health</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="weather.html">Weather</a></li>
+                </ul>
+            </div>
+            <div class="search">
+                <i class="fas fa-search" id="searchIcon"></i>
+                <input type="text" id="searchInput" placeholder="Search 404News...">
+            </div>
+        </div>
+    </header>
+
+    <div class="page-title">
+        <h1>💰 Business</h1>
+    </div>
+
+    <div class="ticker-wrap">
+        <div class="ticker-label">📈 MARKETS</div>
+        <div class="ticker-content">
+            <div class="ticker-items">
+                <div class="ticker-item">
+                    <span class="t-name">AAPL</span>
+                    <span class="t-price">$189.43</span>
+                    <span class="t-change up">▲ +1.24%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="t-name">GOOGL</span>
+                    <span class="t-price">$141.80</span>
+                    <span class="t-change up">▲ +0.87%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="t-name">MSFT</span>
+                    <span class="t-price">$378.92</span>
+                    <span class="t-change up">▲ +0.53%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="t-name">AMZN</span>
+                    <span class="t-price">$182.15</span>
+                    <span class="t-change down">▼ -0.31%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="t-name">TSLA</span>
+                    <span class="t-price">$245.60</span>
+                    <span class="t-change down">▼ -1.08%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="t-name">META</span>
+                    <span class="t-price">$503.77</span>
+                    <span class="t-change up">▲ +2.14%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="t-name">NVDA</span>
+                    <span class="t-price">$875.39</span>
+                    <span class="t-change up">▲ +3.42%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="t-name">S&P 500</span>
+                    <span class="t-price">5,234.18</span>
+                    <span class="t-change up">▲ +0.62%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="t-name">DOW</span>
+                    <span class="t-price">39,127.80</span>
+                    <span class="t-change down">▼ -0.18%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="t-name">NASDAQ</span>
+                    <span class="t-price">16,428.55</span>
+                    <span class="t-change up">▲ +0.95%</span></div>
+                <div class="ticker-item">
+                    <span class="t-name">BTC</span>
+                    <span class="t-price">$67,240</span>
+                    <span class="t-change up">▲ +4.11%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="t-name">GOLD</span>
+                    <span class="t-price">$2,318/oz</span>
+                    <span class="t-change up">▲ +0.44%</span>
+                </div>
+                <div class="ticker-item">
+                    <span class="t-name">OIL</span>
+                    <span class="t-price">$83.15/bbl</span>
+                    <span class="t-change down">▼ -0.72%</span>
+                </div>
+                <div class="ticker-item"><span class="t-name">AAPL</span><span class="t-price">$189.43</span><span class="t-change up">▲ +1.24%</span></div>
+                <div class="ticker-item"><span class="t-name">GOOGL</span><span class="t-price">$141.80</span><span class="t-change up">▲ +0.87%</span></div>
+                <div class="ticker-item"><span class="t-name">MSFT</span><span class="t-price">$378.92</span><span class="t-change up">▲ +0.53%</span></div>
+                <div class="ticker-item"><span class="t-name">AMZN</span><span class="t-price">$182.15</span><span class="t-change down">▼ -0.31%</span></div>
+                <div class="ticker-item"><span class="t-name">TSLA</span><span class="t-price">$245.60</span><span class="t-change down">▼ -1.08%</span></div>
+                <div class="ticker-item"><span class="t-name">META</span><span class="t-price">$503.77</span><span class="t-change up">▲ +2.14%</span></div>
+                <div class="ticker-item"><span class="t-name">NVDA</span><span class="t-price">$875.39</span><span class="t-change up">▲ +3.42%</span></div>
+                <div class="ticker-item"><span class="t-name">S&P 500</span><span class="t-price">5,234.18</span><span class="t-change up">▲ +0.62%</span></div>
+                <div class="ticker-item"><span class="t-name">DOW</span><span class="t-price">39,127.80</span><span class="t-change down">▼ -0.18%</span></div>
+                <div class="ticker-item"><span class="t-name">NASDAQ</span><span class="t-price">16,428.55</span><span class="t-change up">▲ +0.95%</span></div>
+                <div class="ticker-item"><span class="t-name">BTC</span><span class="t-price">$67,240</span><span class="t-change up">▲ +4.11%</span></div>
+                <div class="ticker-item"><span class="t-name">GOLD</span><span class="t-price">$2,318/oz</span><span class="t-change up">▲ +0.44%</span></div>
+                <div class="ticker-item"><span class="t-name">OIL</span><span class="t-price">$83.15/bbl</span><span class="t-change down">▼ -0.72%</span></div>
+            </div>
+        </div>
+    </div>
+
+    <section class="container">
+        <div class="main-news">
+            <img src="https://public.saasexch.com/static/cms/cmsSassLandingPage1/202509/04824d84e2b221e6b4ba13dcfac099ef.png" alt="Stock Market">
+            <h1>Global markets surge as inflation data signals potential rate cuts</h1>
+            <p>
+                World stock markets rallied sharply after new inflation data from the United States came in below expectations, fueling hopes that central banks may begin cutting interest rates sooner than anticipated. The S&P 500 climbed over 1.5% in a single session, with technology and consumer stocks leading the gains.
+                <a href="#" class="read-more">Read more →</a>
+            </p>
+        </div>
+        <aside class="latest-news">
+            <h2>Breaking Business News</h2>
+            <div class="latest-item"><a href="#">💰 Fed signals possible rate cut in Q3</a></div>
+            <div class="latest-item"><a href="#">💰 Apple announces record quarterly earnings</a></div>
+            <div class="latest-item"><a href="#">💰 Oil prices fall amid demand concerns</a></div>
+            <div class="latest-item"><a href="#">💰 Amazon expands AI cloud services</a></div>
+            <div class="latest-item"><a href="#">💰 China GDP growth beats forecasts</a></div>
+            <div class="latest-item"><a href="#">💰 Eurozone enters mild technical recession</a></div>
+            <div class="latest-item"><a href="#">💰 Bitcoin surpasses $67,000 milestone</a></div>
+            <div class="latest-item"><a href="#">💰 IMF upgrades global growth outlook</a></div>
+        </aside>
+    </section>
+
+    <section class="container">
+        <div class="news-grid">
+
+            <div class="news-article">
+                <img src="https://media.licdn.com/dms/image/v2/D4D1AAQHrVd591KX4TA/storylineheaderimage-shrink_400_400/B4DZc8lYccGUAI-/0/1749068122202?e=2147483647&v=beta&t=5hCjfF8311PpNszfhNsfd2g9ibukJUif6fFhNHBkIJ8" alt="Amazon">
+                <div class="news-article-content">
+                    <h3>Amazon invests $10 billion in Southeast Asian logistics expansion</h3>
+                    <p>Amazon announced a major expansion of its delivery and cloud infrastructure across Southeast Asia, targeting the region's fast-growing e-commerce market with new warehouses, data centers, and last-mile delivery networks.</p>
+                    <div class="news-meta">📅 1 hour ago | 🛒 Technology</div>
+                </div>
+            </div>
+
+            <div class="news-article">
+                <img src="https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iTthTzqWwoF0/v1/-1x-1.webp" alt="Markets">
+                <div class="news-article-content">
+                    <h3>Wall Street sees strongest week of the year amid earnings optimism</h3>
+                    <p>A wave of strong corporate earnings from major banks and tech firms pushed U.S. equities to their best weekly performance of 2025, with analysts revising full-year profit forecasts upward for several sectors.</p>
+                    <div class="news-meta">📅 3 hours ago | 📈 Markets</div>
+                </div>
+            </div>
+
+            <div class="news-article">
+                <img src="https://edgedelta.com/wp-content/uploads/2024/03/670e69060de6a74a38276da2_66c72c3b9fefee49ef3ea290_YXNzZXRzL2FydGljbGUvZ2xvYmFsLWFpLWZpbnNlcnYtbWFya2V0LnBuZw253D253D.png" alt="AI Business">
+                <div class="news-article-content">
+                    <h3>AI adoption accelerates as businesses report productivity gains</h3>
+                    <p>A new McKinsey report reveals that companies integrating AI into core operations are reporting productivity increases of up to 40%, reshaping hiring trends and competitive dynamics across industries from finance to healthcare.</p>
+                    <div class="news-meta">📅 6 hours ago | 🤖 AI & Tech</div>
+                </div>
+            </div>
+
+            <div class="news-article">
+                <img src="https://www.reuters.com/resizer/v2/75HQDGCEJ5MHJPCJILODM5Q6K4.jpg?auth=20e76c1f5dda4afc2ee47420459fa6d37f06a68226eba7196e23020ef7a47f64&width=1920&quality=80" alt="EV">
+                <div class="news-article-content">
+                    <h3>Electric vehicle sales hit new global record in first quarter</h3>
+                    <p>Global EV sales surpassed 4 million units in Q1 2025, a 28% year-on-year increase driven by falling battery costs, expanded charging infrastructure, and strong demand in Europe and China.</p>
+                    <div class="news-meta">📅 10 hours ago | 🚗 Automotive</div>
+                </div>
+            </div>
+
+            <div class="news-article">
+                <img src="https://imgs.newseditor.aws.kuehne-nagel.cloud/21971f25-e5c6-45f1-b670-13c11c8377c2.jpg" alt="Trade">
+                <div class="news-article-content">
+                    <h3>US and EU reach framework agreement on digital trade rules</h3>
+                    <p>After two years of negotiations, American and European trade officials announced a framework agreement on digital trade, covering data flows, platform regulation, and AI governance standards across the Atlantic.</p>
+                    <div class="news-meta">📅 1 day ago | 🌐 Trade</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="latest-sub-news">
+            <div class="latest-sub-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS37heuP1N5qktiwyi3gQGcVOJ9kOcmB_A77Q&s" alt="Markets">
+                <p>Goldman Sachs raises S&P 500 year-end target to 5,800</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShOgNcxnlGuJAT9LNxaD0jkrrC6p8g2nndXw&s" alt="Amazon">
+                <p>E-commerce giant reports 22% revenue growth in Q1</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://cdn.motor1.com/images/mgl/pbzXkW/s3/tesla-model-a-render.jpg" alt="EV">
+                <p>Tesla unveils new affordable EV model for emerging markets</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://substackcdn.com/image/fetch/f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F71ed0a1a-6344-4a78-9e1f-76b4898d4ddd_2460x1381.png" alt="Tech">
+                <p>Microsoft Azure cloud revenue grows 31% year-over-year</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">
+            <h1><a href="news.html" style="color: #FFFFFF; text-decoration: none;">404News</a></h1>
+        </div>
+        <div class="footer-follow">
+            <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="https://www.x.com/"><i class="fab fa-x-twitter"></i> X</a>
+            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i> Instagram</a>
+        </div>
+        <p>© 2025 404News Website | Educational Project</p>
+    </footer>
+
+    <script>
+        const searchIcon = document.getElementById("searchIcon");
+        const searchInput = document.getElementById("searchInput");
+        searchIcon.addEventListener("click", () => {
+            searchInput.style.display = searchInput.style.display === "block" ? "none" : "block";
+            if (searchInput.style.display === "block") searchInput.focus();
+        });
+    </script>
+</body>
+</html>

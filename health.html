@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health News - 404News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+   body {
+        padding: 0;
+        margin: 0;
+        background-color: #f5f5f5;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+   header{
+        width: 100%;
+        background-color: #001F5B;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: #fff;
+        box-sizing: border-box;
+    }
+   .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+    }
+    .logo h1{
+        color: #FFFFFF;
+        font-size: 26px;
+        font-weight: bold;
+        margin: 0;
+    }
+    .menu {
+        list-style: none;
+        display: flex;
+        background-color: #001F5B;
+        padding: 0;
+        margin: 0;
+    }
+    .menu li a {
+        display: block;
+        padding: 10px 15px;
+        color: #FFFFFF;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s, background 0.3s;
+    }
+    .menu li a:hover {
+        color: #001F5B;
+        background-color: #FFFFFF;
+        border-radius: 4px;
+    }
+    .menu li a.active {
+        color: #001F5B;
+        background-color: #FFFFFF;
+        border-radius: 4px;
+    }
+    .search{
+        position: relative;
+    }
+    .search i{
+        font-size: 20px;
+        cursor: pointer;
+        color: #FFFFFF;
+    }
+    .search input{
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 6px 10px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        width: 200px;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+    .search input:focus{
+        outline: none;
+        border: 2px solid #564be8;
+    }
+    
+    .page-title {
+        width: 90%;
+        margin: 25px auto 0;
+        background: #FFFFFF;
+        padding: 20px 25px;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+    .page-title h1 {
+        margin: 0;
+        color: #001F5B;
+        font-size: 32px;
+        border-left: 6px solid #001F5B;
+        padding-left: 15px;
+    }
+
+    .container {
+        width: 90%;
+        margin: 25px auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 25px;
+    }
+    .latest-news {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        align-self: start;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        max-height: 450px;
+        overflow-y: auto;
+    }
+    .latest-news h2 {
+        border-left: 4px solid #001F5B;
+        padding-left: 15px;
+        margin-bottom: 10px;
+        font-size: 20px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .latest-item {
+        margin-bottom: 13px;
+    }
+    .latest-item a {
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .latest-item a:hover {
+        color: #001F5B;
+    }
+
+    .main-news {
+        background: #FFFFFF;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+    }
+    .main-news img {
+        width: 100%;
+        border-radius: 5px;
+        transition: transform 0.4s ease;
+    }
+    .main-news:hover img {
+        transform: scale(1.04);
+    }
+    .main-news h1 {
+        transition: color 0.3s;
+        font-size: 28px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .main-news:hover h1 {
+        color: #001F5B;
+    }
+    .main-news p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .read-more {
+        text-decoration: none;
+        color: #001F5B;
+        font-weight: bold;
+    }
+    .read-more:hover {
+        text-decoration: underline;
+    }
+
+    .news-grid {
+        display: grid;
+        gap: 20px;
+    }
+    .news-article {
+        background: #FFFFFF;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 15px;
+    }
+    .news-article:hover {
+        transform: translateY(-4px);
+    }
+    .news-article img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+    .news-article-content {
+        padding: 15px 15px 15px 0;
+    }
+    .news-article h3 {
+        font-size: 18px;
+        margin: 0 0 10px 0;
+        color: #000;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .news-article h3:hover {
+        color: #001F5B;
+    }
+    .news-article p {
+        font-size: 14px;
+        color: #666;
+        margin: 0 0 10px 0;
+        line-height: 1.5;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .news-meta {
+        font-size: 12px;
+        color: #999;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    .latest-sub-news {
+        max-height: 260px;
+        overflow-y: auto;
+    }
+    .latest-sub-item {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        cursor: pointer;
+    }
+    .latest-sub-item img {
+        width: 70px;
+        height: 55px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+    .latest-sub-item p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.4;
+        font-weight: bold;
+        color: #000;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    .latest-sub-item p:hover {
+        color: #001F5B;
+    }
+
+    footer {
+        background-color: #001F5B;
+        color: #FFFFFF;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 30px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    footer .footer-follow a {
+        color: #FFFFFF;
+        margin-right: 10px;
+        text-decoration: none;
+    }
+    footer .footer-follow a:hover {
+        color: #ccc;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="logo">
+                <h1><a href="news.html" style="color: #FFFFFF; text-decoration: none;">404News</a></h1>
+            </div>
+            <div class="main-menu">
+                <ul class="menu">
+                    <li><a href="world.html">World</a></li>
+                    <li><a href="politics.html">Politics</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="health.html" class="active">Health</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="weather.html">Weather</a></li>
+                </ul>
+            </div>
+            <div class="search">
+                <i class="fas fa-search" id="searchIcon"></i>
+                <input type="text" id="searchInput" placeholder="Search 404News...">
+            </div>
+        </div>
+    </header>
+
+    <div class="page-title">
+        <h1>🩺 Health</h1>
+    </div>
+
+    <section class="container">
+        <div class="main-news">
+            <img src="https://primarycare.hms.harvard.edu/sites/default/files/assets/PDFs/2024%20PGPCSC%20Scholars/Lancet%20Commissioners/global-primary-care-webpage-banner.png" alt="WHO Health">
+            <h1>WHO launches global initiative to strengthen primary healthcare</h1>
+            <p>
+                The World Health Organization unveiled a sweeping new program aimed at expanding access to primary healthcare in low- and middle-income countries. The initiative focuses on training community health workers, improving medical supply chains, and integrating digital health tools to reach underserved populations.
+                <a href="#" class="read-more">Read more →</a>
+            </p>
+        </div>
+
+        <aside class="latest-news">
+            <h2>Breaking Health News</h2>
+            <div class="latest-item"><a href="#">🩺 New cancer screening guidelines released</a></div>
+            <div class="latest-item"><a href="#">🩺 Study links sleep deprivation to heart risk</a></div>
+            <div class="latest-item"><a href="#">🩺 FDA approves new diabetes treatment</a></div>
+            <div class="latest-item"><a href="#">🩺 Mental health crisis declared in several regions</a></div>
+            <div class="latest-item"><a href="#">🩺 Breakthrough in Alzheimer's drug trials</a></div>
+            <div class="latest-item"><a href="#">🩺 Global antibiotic resistance on the rise</a></div>
+            <div class="latest-item"><a href="#">🩺 Childhood obesity rates reach record high</a></div>
+            <div class="latest-item"><a href="#">🩺 New vaccine approved for respiratory virus</a></div>
+        </aside>
+    </section>
+
+    <section class="container">
+        <div class="news-grid">
+
+            <div class="news-article">
+                <img src="https://www.economist.com/sites/default/files/images/2021/01/articles/main/20210130_wom968.png" alt="Vaccination">
+                <div class="news-article-content">
+                    <h3>Global vaccination rates improve in developing nations</h3>
+                    <p>International health organizations report significant progress in vaccine distribution across Africa and South Asia, with coverage rates rising by 18% over the past year thanks to new cold-chain logistics programs.</p>
+                    <div class="news-meta">📅 1 hour ago | 💉 Vaccines</div>
+                </div>
+            </div>
+
+            <div class="news-article">
+                <img src="https://media.actionforchildren.org.uk/images/Boy_sat_down_in_a_support_appo.2e16d0ba.fill-950x535-c50.jpg" alt="Mental Health">
+                <div class="news-article-content">
+                    <h3>Researchers call for urgent action on youth mental health</h3>
+                    <p>A landmark study published in The Lancet reveals a sharp increase in anxiety and depression among adolescents globally, urging governments to fund school-based mental health support programs.</p>
+                    <div class="news-meta">📅 3 hours ago | 🧠 Mental Health</div>
+                </div>
+            </div>
+
+            <div class="news-article">
+                <img src="https://aarp.widen.net/content/3cpimj3wlo/jpeg/DGA-1%20copy.jpg?anchor=0%2C0&q=80&color=ffffffff&u=pwhw75" alt="Nutrition">
+                <div class="news-article-content">
+                    <h3>New dietary guidelines emphasize plant-based eating</h3>
+                    <p>Health authorities in over 30 countries have updated their national dietary guidelines to encourage reduced red meat consumption and increased intake of legumes, whole grains, and vegetables for long-term health benefits.</p>
+                    <div class="news-meta">📅 6 hours ago | 🥗 Nutrition</div>
+                </div>
+            </div>
+
+            <div class="news-article">
+                <img src="https://th-thumbnailer.cdn-si-edu.com/jy2la-vmZeAi6HszY-p13FoBkwY=/1026x684/filters:no_upscale()/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/73/a1/73a13ed9-3262-4973-b40f-97a26aa79fcf/istock-924923870.jpg" alt="Research">
+                <div class="news-article-content">
+                    <h3>Scientists discover potential link between gut health and depression</h3>
+                    <p>A groundbreaking study from Johns Hopkins University suggests that the gut microbiome may directly influence brain chemistry, opening new avenues for treating depression through probiotic therapies.</p>
+                    <div class="news-meta">📅 9 hours ago | 🔬 Research</div>
+                </div>
+            </div>
+
+            <div class="news-article">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSo-gcyUtQCggNBYVloxlNT1PqhNjqsUxkgQw&s" alt="Aging">
+                <div class="news-article-content">
+                    <h3>Longevity researchers identify key habits of centenarians</h3>
+                    <p>A decades-long study tracking populations in five "Blue Zone" regions reveals that social connection, moderate physical activity, and plant-rich diets are the strongest predictors of living past 100.</p>
+                    <div class="news-meta">📅 1 day ago | 👴 Aging</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="latest-sub-news">
+            <div class="latest-sub-item">
+                <img src="https://cdn.who.int/media/images/default-source/tuberculosis/global-tb-report-2023/fig_1.3.06-2.tmb-1920v.png?sfvrsn=991a0a9c_1" alt="WHO">
+                <p>WHO warns of surge in drug-resistant tuberculosis cases worldwide</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://www.mdpi.com/vaccines/vaccines-13-00601/article_deploy/html/images/vaccines-13-00601-g001.png" alt="Vaccine">
+                <p>mRNA technology being explored for new flu vaccine development</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL4D5SG3EUAbZ530FGS8ygGMrVGT1MawHIVQ&s" alt="Sleep">
+                <p>Sleep scientists recommend revised screen time rules for children</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://www.eatingwell.com/thmb/wImiE9cPRT65OPuONkUuMP_0tbU=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/15-Minutes-of-This-Exercise-May-Lower-Mortality-Risk-by-20-New-Study-Says-acf9a0c50a0c4dc09b8f7f5c2ea248b1.jpg" alt="Exercise">
+                <p>30 minutes of daily walking shown to cut stroke risk by 20%</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">
+            <h1><a href="news.html" style="color: #FFFFFF; text-decoration: none;">404News</a></h1>
+        </div>
+        <div class="footer-follow">
+            <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="https://www.x.com/"><i class="fab fa-x-twitter"></i> X</a>
+            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i> Instagram</a>
+        </div>
+        <p>© 2025 404News Website | Educational Project</p>
+    </footer>
+
+    <script>
+        const searchIcon = document.getElementById("searchIcon");
+        const searchInput = document.getElementById("searchInput");
+        searchIcon.addEventListener("click", () => {
+            if (searchInput.style.display === "block") {
+                searchInput.style.display = "none";
+            } else {
+                searchInput.style.display = "block";
+                searchInput.focus();
+            }
+        });
+    </script>
+</body>
+</html>

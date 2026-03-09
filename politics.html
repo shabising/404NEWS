@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politics News - 404News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+   body {
+        padding: 0;
+        margin: 0;
+        background-color: #f5f5f5;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+   header{
+        width: 100%;
+        background-color: #001F5B;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        color: #fff;
+        box-sizing: border-box;
+    }
+   .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+    }
+    .logo h1{
+        color: #FFFFFF;
+        font-size: 26px;
+        font-weight: bold;
+        margin: 0;
+    }
+    .menu {
+        list-style: none;
+        display: flex;
+        background-color: #001F5B;
+        padding: 0;
+        margin: 0;
+        align-items: center;
+    }
+    .menu li { position: relative; }
+    .menu li a {
+        display: block;
+        padding: 10px 15px;
+        color: #FFFFFF;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s, background 0.3s;
+    }
+    .menu li a:hover, .menu li a.active {
+        color: #001F5B;
+        background-color: #FFFFFF;
+        border-radius: 4px;
+    }
+    .dropdown { position: relative; }
+    .dropdown-title {
+        cursor: pointer;
+        padding: 10px 15px;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+        color: #FFFFFF;
+        font-weight: bold;
+        display: block;
+        background-color: #FFFFFF;
+        color: #001F5B;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        min-width: 200px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        border-radius: 10px;
+        overflow: hidden;
+        z-index: 1000;
+    }
+    .dropdown:hover .dropdown-content {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    .dropdown-content a {
+        color: #FFFFFF;
+        background-color: #001F5B;
+        padding: 10px 15px;
+        display: block;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        font-weight: normal;
+    }
+    .dropdown-content a:hover { background: #FFFFFF; color: #001F5B; }
+    .search { position: relative; }
+    .search i { font-size: 20px; cursor: pointer; color: #FFFFFF; }
+    .search input {
+        display: none;
+        position: absolute;
+        right: 0; top: 0;
+        padding: 6px 10px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        width: 200px;
+        box-sizing: border-box;
+    }
+    .search input:focus { outline: none; border: 2px solid #564be8; }
+
+    .page-title {
+        width: 90%;
+        margin: 25px auto 0;
+        background: #FFFFFF;
+        padding: 20px 25px;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+    .page-title h1 {
+        margin: 0;
+        color: #001F5B;
+        font-size: 32px;
+        border-left: 6px solid #001F5B;
+        padding-left: 15px;
+    }
+    .container {
+        width: 90%;
+        margin: 25px auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 25px;
+    }
+    .main-news {
+        background: #FFFFFF;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        overflow: hidden;
+        cursor: pointer;
+    }
+    .main-news img { width: 100%; border-radius: 5px; transition: transform 0.4s ease; }
+    .main-news:hover img { transform: scale(1.04); }
+    .main-news h1 { transition: color 0.3s; font-size: 26px; }
+    .main-news:hover h1 { color: #001F5B; }
+    .main-news p { font-size: 15px; line-height: 1.6; margin-bottom: 10px; }
+    .read-more { text-decoration: none; color: #001F5B; font-weight: bold; }
+    .read-more:hover { text-decoration: underline; }
+    .latest-news {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        align-self: start;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        max-height: 450px;
+        overflow-y: auto;
+    }
+    .latest-news h2 { border-left: 4px solid #001F5B; padding-left: 15px; margin-bottom: 10px; font-size: 20px; }
+    .latest-item { margin-bottom: 13px; }
+    .latest-item a { text-decoration: none; color: black; font-size: 16px; font-weight: bold; }
+    .latest-item a:hover { color: #001F5B; }
+    .news-grid { display: grid; gap: 20px; }
+    .news-article {
+        background: #FFFFFF;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 15px;
+    }
+    .news-article:hover { transform: translateY(-4px); }
+    .news-article img { width: 100%; height: 150px; object-fit: cover; }
+    .news-article-content { padding: 15px 15px 15px 0; }
+    .news-article h3 { font-size: 18px; margin: 0 0 10px 0; color: #000; }
+    .news-article h3:hover { color: #001F5B; }
+    .news-article p { font-size: 14px; color: #666; margin: 0 0 10px 0; line-height: 1.5; }
+    .news-meta { font-size: 12px; color: #999; }
+    .latest-sub-news { max-height: 260px; overflow-y: auto; }
+    .latest-sub-item { display: flex; gap: 10px; margin-bottom: 12px; cursor: pointer; }
+    .latest-sub-item img { width: 70px; height: 55px; object-fit: cover; border-radius: 4px; }
+    .latest-sub-item p { margin: 0; font-size: 13px; line-height: 1.4; font-weight: bold; color: #000; }
+    .latest-sub-item p:hover { color: #001F5B; }
+    footer {
+        background-color: #001F5B;
+        color: #FFFFFF;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+    footer .footer-follow a { color: #FFFFFF; margin-right: 10px; text-decoration: none; }
+</style>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="logo">
+                <h1><a href="news.html" style="color: #FFFFFF; text-decoration: none;">404News</a></h1>
+            </div>
+            <div class="main-menu">
+                <ul class="menu">
+                    <li><a href="world.html">World</a></li>
+                    <li class="dropdown">
+                        <span class="dropdown-title">Politics ▾</span>
+                        <div class="dropdown-content">
+                            <a href="localnews.html">Local News</a>
+                            <a href="internationalnews.html">International News</a>
+                        </div>
+                    </li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="health.html">Health</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="weather.html">Weather</a></li>
+                </ul>
+            </div>
+            <div class="search">
+                <i class="fas fa-search" id="searchIcon"></i>
+                <input type="text" id="searchInput" placeholder="Search 404News...">
+            </div>
+        </div>
+    </header>
+
+    <div class="page-title">
+        <h1>🏛️ Politics</h1>
+    </div>
+
+    <section class="container">
+        <div class="main-news">
+            <img src="https://external-preview.redd.it/HQt9LzoECCXCW3CaWSiqGJXdXyTaMgDbJtl7AicqbaY.jpg?auto=webp&s=725a468b7dc9708ccd2cca3df901063ab7f80e2e" alt="Capitol">
+            <h1>Senate reaches bipartisan deal on infrastructure bill</h1>
+            <p>
+                After months of negotiations, senators from both major parties have agreed on a landmark infrastructure package worth $1.2 trillion. The deal covers roads, bridges, broadband internet, and clean energy initiatives across the country.
+                <a href="#" class="read-more">Read more →</a>
+            </p>
+        </div>
+        <aside class="latest-news">
+            <h2>🔴 Breaking Politics</h2>
+            <div class="latest-item"><a href="#">🏛️ President signs new executive order on trade</a></div>
+            <div class="latest-item"><a href="#">🏛️ Congress debates healthcare reform bill</a></div>
+            <div class="latest-item"><a href="#">🌐 NATO allies gather for emergency summit</a></div>
+            <div class="latest-item"><a href="#">🏛️ Mayor announces city budget for 2026</a></div>
+            <div class="latest-item"><a href="#">🌐 UN Security Council votes on resolution</a></div>
+            <div class="latest-item"><a href="#">🏛️ Governor signs education reform into law</a></div>
+            <div class="latest-item"><a href="#">🌐 Diplomatic talks resume between key nations</a></div>
+            <div class="latest-item"><a href="#">🏛️ Election commission releases new guidelines</a></div>
+        </aside>
+    </section>
+
+    <section class="container">
+        <div class="news-grid">
+            <div class="news-article">
+                <img src="https://static.pw.live/5eb393ee95fab7468a79d189/GLOBAL_CMS_BLOGS/4105b334-77bc-4849-8c25-a0089bae9789.jpg" alt="Policy">
+                <div class="news-article-content">
+                    <h3>New economic policy aims to reduce national debt</h3>
+                    <p>The administration unveiled a multi-year fiscal plan targeting deficit reduction through spending cuts and revised tax structures, drawing mixed reactions from lawmakers.</p>
+                    <div class="news-meta">📅 1 hour ago | 🏛️ Local</div>
+                </div>
+            </div>
+            <div class="news-article">
+                <img src="https://www.reuters.com/resizer/v2/OPHHH5347RJJ5HHHQSMFTFEQWE.jpg?auth=65204716d6ec0bf8d8384491a1dd83586f9b988e710cf193c7f07ac35dcfae5a&width=1080&quality=80" alt="Diplomacy">
+                <div class="news-article-content">
+                    <h3>Foreign ministers meet to discuss regional security</h3>
+                    <p>A high-level diplomatic conference brought together foreign ministers from 15 countries to address escalating tensions and establish new cooperation frameworks.</p>
+                    <div class="news-meta">📅 3 hours ago | 🌐 International</div>
+                </div>
+            </div>
+            <div class="news-article">
+                <img src="https://img.freepik.com/premium-photo/crowd-protestors-rallying-support-human-rights_94574-12900.jpg" alt="Protest">
+                <div class="news-article-content">
+                    <h3>Citizens rally in support of civil rights legislation</h3>
+                    <p>Thousands gathered in the capital demanding swift passage of the Civil Rights Protection Act, calling it the most significant rights bill in a generation.</p>
+                    <div class="news-meta">📅 6 hours ago | 🏛️ Local</div>
+                </div>
+            </div>
+            <div class="news-article">
+                <img src="https://www.reuters.com/resizer/v2/5GTW3BFEPJNPZED7YXROHDMR4Q.jpg?auth=42f7738324b56630420061eac248d995d4cd0c8a2b7f56b99168497b84419f27&width=1080&quality=80" alt="EU">
+                <div class="news-article-content">
+                    <h3>European Union tightens sanctions on authoritarian regimes</h3>
+                    <p>The EU Council voted to expand targeted sanctions against officials in several countries accused of human rights violations, freezing assets and banning travel.</p>
+                    <div class="news-meta">📅 8 hours ago | 🌐 International</div>
+                </div>
+            </div>
+        </div>
+        <div class="latest-sub-news">
+            <div class="latest-sub-item">
+                <img src="https://tse1.mm.bing.net/th/id/OIP.xaj3w-HC1BVrGgY6IoXPCQHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" alt="">
+                <p>City council approves new zoning regulations for downtown</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://image.cnbcfm.com/api/v1/image/104172515-GettyImages-607010764.jpg?v=1529473641&w=1920&h=1080" alt="">
+                <p>NATO announces increased defense spending commitments</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://itnaudio.s3.us-east-2.amazonaws.com/split_audio/66ddd112472d9_image.png" alt="">
+                <p>South Korea and Japan strengthen bilateral security ties</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://www.housingwire.com/wp-content/uploads/2019/10/congress.jpeg?resize=150" alt="">
+                <p>State legislature passes new housing affordability act</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">
+            <h1><a href="news.html" style="color: #FFFFFF; text-decoration: none;">404News</a></h1>
+        </div>
+        <div class="footer-follow">
+            <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="https://www.x.com/"><i class="fab fa-x-twitter"></i> X</a>
+            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i> Instagram</a>
+        </div>
+        <p>© 2025 404News Website | Educational Project</p>
+    </footer>
+
+    <script>
+        const searchIcon = document.getElementById("searchIcon");
+        const searchInput = document.getElementById("searchInput");
+        searchIcon.addEventListener("click", () => {
+            searchInput.style.display = searchInput.style.display === "block" ? "none" : "block";
+            if (searchInput.style.display === "block") searchInput.focus();
+        });
+    </script>
+</body>
+</html>

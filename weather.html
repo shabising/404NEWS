@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather News - 404News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+    body {
+        padding: 0;
+        margin: 0;
+        background-color: #f5f5f5;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+    header {
+        width: 100%;
+        background-color: #001F5B;
+        color: #fff;
+        box-sizing: border-box;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+    }
+
+    .logo h1 {
+        color: #FFFFFF;
+        font-size: 26px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .menu {
+        list-style: none;
+        display: flex;
+        background-color: #001F5B;
+        padding: 0;
+        margin: 0;
+    }
+
+    .menu li a {
+        display: block;
+        padding: 10px 15px;
+        color: #FFFFFF;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s, background 0.3s;
+    }
+
+    .menu li a:hover,
+    .menu li a.active {
+        color: #001F5B;
+        background-color: #FFFFFF;
+        border-radius: 4px;
+    }
+    .search {
+        position: relative;
+    }
+
+    .search i {
+        font-size: 20px;
+        cursor: pointer;
+        color: #FFFFFF;
+    }
+
+    .search input {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 6px 10px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        width: 200px;
+        box-sizing: border-box;
+        transition: all 0.3s ease;
+    }
+
+    .search input:focus {
+        outline: none;
+        border: 2px solid #564be8;
+    }
+
+    .page-title {
+        width: 90%;
+        margin: 25px auto 0;
+        background: #FFFFFF;
+        padding: 20px 25px;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    .page-title h1 {
+        margin: 0;
+        color: #001F5B;
+        font-size: 32px;
+        border-left: 6px solid #001F5B;
+        padding-left: 15px;
+    }
+    .weather-section {
+        width: 90%;
+        margin: 25px auto;
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 25px;
+    }
+
+    .weather-card {
+        background: linear-gradient(135deg, #001F5B 0%, #0a4a9e 60%, #1a6ec7 100%);
+        border-radius: 12px;
+        padding: 30px;
+        color: #fff;
+        box-shadow: 0 6px 20px rgba(0,31,91,0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .weather-card::before,
+    .weather-card::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.05);
+    }
+
+    .weather-card::before {
+        top: -40px;
+        right: -40px;
+        width: 180px;
+        height: 180px;
+    }
+
+    .weather-card::after {
+        bottom: -60px;
+        left: -30px;
+        width: 220px;
+        height: 220px;
+        background: rgba(255,255,255,0.04);
+    }
+
+    .weather-search {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 25px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .weather-search input {
+        flex: 1;
+        padding: 10px 15px;
+        border-radius: 6px;
+        border: none;
+        font-size: 14px;
+        outline: none;
+    }
+
+    .weather-search button {
+        padding: 10px 18px;
+        background: rgba(255,255,255,0.2);
+        color: #fff;
+        border: 2px solid rgba(255,255,255,0.4);
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s;
+    }
+
+    .weather-search button:hover {
+        background: rgba(255,255,255,0.35);
+    }
+
+    .weather-main {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .weather-icon {
+        font-size: 72px;
+        line-height: 1;
+    }
+
+    .weather-temp {
+        font-size: 64px;
+        font-weight: bold;
+        line-height: 1;
+    }
+
+    .weather-temp sup {
+        font-size: 28px;
+        vertical-align: super;
+    }
+
+    .weather-city {
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 4px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .weather-desc {
+        font-size: 15px;
+        opacity: 0.85;
+        margin-bottom: 20px;
+        position: relative;
+        z-index: 1;
+        text-transform: capitalize;
+    }
+
+    .weather-details {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        position: relative;
+        z-index: 1;
+    }
+
+    .weather-detail-item {
+        background: rgba(255,255,255,0.12);
+        border-radius: 8px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .weather-detail-item i {
+        font-size: 18px;
+        margin-bottom: 5px;
+        opacity: 0.9;
+    }
+
+    .weather-detail-item .detail-value {
+        font-size: 15px;
+        font-weight: bold;
+        display: block;
+    }
+
+    .weather-detail-item .detail-label {
+        font-size: 11px;
+        opacity: 0.75;
+        display: block;
+        margin-top: 2px;
+    }
+
+    .forecast-card {
+        background: #FFFFFF;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .forecast-card h3 {
+        margin: 0 0 18px 0;
+        color: #001F5B;
+        font-size: 18px;
+        border-left: 4px solid #001F5B;
+        padding-left: 12px;
+    }
+
+    .forecast-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .forecast-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 12px;
+        background: #f8f9ff;
+        border-radius: 8px;
+        border-left: 3px solid #001F5B;
+    }
+
+    .forecast-day {
+        font-weight: bold;
+        color: #001F5B;
+        font-size: 13px;
+        width: 90px;
+    }
+
+    .forecast-icon {
+        font-size: 22px;
+    }
+
+    .forecast-desc {
+        font-size: 12px;
+        color: #666;
+        flex: 1;
+        padding: 0 10px;
+        text-transform: capitalize;
+    }
+
+    .forecast-temps {
+        font-size: 13px;
+        font-weight: bold;
+        color: #001F5B;
+        text-align: right;
+    }
+
+    .forecast-temps .low {
+        color: #888;
+        font-weight: normal;
+        margin-left: 6px;
+    }
+
+    .error-msg {
+        background: rgba(255,80,80,0.2);
+        border-radius: 6px;
+        padding: 10px 14px;
+        font-size: 13px;
+        margin-top: 10px;
+        display: none;
+        position: relative;
+        z-index: 1;
+    }
+
+    .loading-msg {
+        font-size: 14px;
+        opacity: 0.8;
+        display: none;
+        margin-top: 10px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* ===== News ===== */
+    .container {
+        width: 90%;
+        margin: 25px auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 25px;
+    }
+
+    .latest-news {
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        align-self: start;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        max-height: 450px;
+        overflow-y: auto;
+    }
+
+    .latest-news h2 {
+        border-left: 4px solid #001F5B;
+        padding-left: 15px;
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+
+    .latest-item {
+        margin-bottom: 13px;
+    }
+
+    .latest-item a {
+        text-decoration: none;
+        color: black;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .latest-item a:hover {
+        color: #001F5B;
+    }
+
+    .main-news {
+        background: #FFFFFF;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .main-news img {
+        width: 100%;
+        border-radius: 5px;
+        transition: transform 0.4s ease;
+    }
+
+    .main-news:hover img {
+        transform: scale(1.04);
+    }
+
+    .main-news h1 {
+        transition: color 0.3s;
+        font-size: 28px;
+    }
+
+    .main-news:hover h1 {
+        color: #001F5B;
+    }
+
+    .main-news p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
+
+    .read-more {
+        text-decoration: none;
+        color: #001F5B;
+        font-weight: bold;
+    }
+
+    .read-more:hover {
+        text-decoration: underline;
+    }
+
+    .news-grid {
+        display: grid;
+        gap: 20px;
+    }
+
+    .news-article {
+        background: #FFFFFF;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.3s;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 15px;
+    }
+
+    .news-article:hover {
+        transform: translateY(-4px);
+    }
+
+    .news-article img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    .news-article-content {
+        padding: 15px 15px 15px 0;
+    }
+
+    .news-article h3 {
+        font-size: 18px;
+        margin: 0 0 10px 0;
+        color: #000;
+    }
+
+    .news-article h3:hover {
+        color: #001F5B;
+    }
+
+    .news-article p {
+        font-size: 14px;
+        color: #666;
+        margin: 0 0 10px 0;
+        line-height: 1.5;
+    }
+
+    .news-meta {
+        font-size: 12px;
+        color: #999;
+    }
+
+    .latest-sub-news {
+        max-height: 260px;
+        overflow-y: auto;
+    }
+
+    .latest-sub-item {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 12px;
+        cursor: pointer;
+    }
+
+    .latest-sub-item img {
+        width: 70px;
+        height: 55px;
+        object-fit: cover;
+        border-radius: 4px;
+    }
+
+    .latest-sub-item p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.4;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .latest-sub-item p:hover {
+        color: #001F5B;
+    }
+    footer {
+        background-color: #001F5B;
+        color: #FFFFFF;
+        padding: 20px 30px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-top: 30px;
+    }
+
+    footer .footer-follow a {
+        color: #FFFFFF;
+        margin-right: 10px;
+        text-decoration: none;
+    }
+
+    footer .footer-follow a:hover {
+        color: #ccc;
+    }
+</style>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="logo">
+                <h1><a href="news.html" style="color: #FFFFFF; text-decoration: none;">404News</a></h1>
+            </div>
+            <div class="main-menu">
+                <ul class="menu">
+                    <li><a href="world.html">World</a></li>
+                    <li><a href="politics.html">Politics</a></li>
+                    <li><a href="business.html">Business</a></li>
+                    <li><a href="health.html">Health</a></li>
+                    <li><a href="sports.html">Sports</a></li>
+                    <li><a href="weather.html" class="active">Weather</a></li>
+                </ul>
+            </div>
+            <div class="search">
+                <i class="fas fa-search" id="searchIcon"></i>
+                <input type="text" id="searchInput" placeholder="Search 404News...">
+            </div>
+        </div>
+    </header>
+
+    <div class="page-title">
+        <h1>⛅ Weather</h1>
+    </div>
+
+    <div class="weather-section">
+        <div class="weather-card">
+            <div class="weather-search">
+                <input type="text" id="cityInput" placeholder="Enter city name..." />
+                <button onclick="getWeather()"><i class="fas fa-search"></i> Search</button>
+            </div>
+            <div class="loading-msg" id="loadingMsg">⏳ Fetching weather data...</div>
+            <div class="error-msg" id="errorMsg">❌ City not found. Please try again.</div>
+
+            <div id="weatherData">
+                <div class="weather-main">
+                    <div class="weather-icon" id="weatherIcon">🌤️</div>
+                    <div class="weather-temp" id="weatherTemp">22<sup>°C</sup></div>
+                </div>
+                <div class="weather-city" id="weatherCity">London, GB</div>
+                <div class="weather-desc" id="weatherDesc">Partly cloudy</div>
+                <div class="weather-details">
+                    <div class="weather-detail-item">
+                        <i class="fas fa-tint"></i>
+                        <span class="detail-value" id="humidity">65%</span>
+                        <span class="detail-label">Humidity</span>
+                    </div>
+                    <div class="weather-detail-item">
+                        <i class="fas fa-wind"></i>
+                        <span class="detail-value" id="wind">14 km/h</span>
+                        <span class="detail-label">Wind</span>
+                    </div>
+                    <div class="weather-detail-item">
+                        <i class="fas fa-thermometer-half"></i>
+                        <span class="detail-value" id="feelsLike">19°C</span>
+                        <span class="detail-label">Feels Like</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="forecast-card">
+            <h3>📅 5-Day Forecast</h3>
+            <div class="forecast-list" id="forecastList">
+                <div class="forecast-item">
+                    <span class="forecast-day">Today</span>
+                    <span class="forecast-icon">🌤️</span>
+                    <span class="forecast-desc">Partly cloudy</span>
+                    <span class="forecast-temps">22° <span class="low">14°</span></span>
+                </div>
+                <div class="forecast-item">
+                    <span class="forecast-day">Tomorrow</span>
+                    <span class="forecast-icon">🌧️</span>
+                    <span class="forecast-desc">Light rain</span>
+                    <span class="forecast-temps">18° <span class="low">12°</span></span>
+                </div>
+                <div class="forecast-item">
+                    <span class="forecast-day">Wednesday</span>
+                    <span class="forecast-icon">⛅</span>
+                    <span class="forecast-desc">Overcast</span>
+                    <span class="forecast-temps">16° <span class="low">10°</span></span>
+                </div>
+                <div class="forecast-item">
+                    <span class="forecast-day">Thursday</span>
+                    <span class="forecast-icon">☀️</span>
+                    <span class="forecast-desc">Sunny</span>
+                    <span class="forecast-temps">24° <span class="low">15°</span></span>
+                </div>
+                <div class="forecast-item">
+                    <span class="forecast-day">Friday</span>
+                    <span class="forecast-icon">🌩️</span>
+                    <span class="forecast-desc">Thunderstorm</span>
+                    <span class="forecast-temps">20° <span class="low">13°</span></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="container">
+        <div class="main-news">
+            <img src="https://images.axios.com/9E-0FJLa9O_jkfudY80P1vEL5qs=/0x171:1920x1251/640x360/2022/06/21/1655774369135.jpg" alt="Climate">
+            <h1>Record-breaking heatwaves forecast across three continents this summer</h1>
+            <p>
+                Meteorologists warn that 2025 is on track to be the hottest year on record, with extreme heat events expected across Southern Europe, North Africa, and South Asia. Scientists urge governments to accelerate climate adaptation measures as heat-related health risks reach unprecedented levels.
+                <a href="#" class="read-more">Read more →</a>
+            </p>
+        </div>
+        <aside class="latest-news">
+            <h2>Breaking Weather News</h2>
+            <div class="latest-item"><a href="#">⛈️ Hurricane watch issued for Gulf Coast</a></div>
+            <div class="latest-item"><a href="#">🌊 Flood warnings across central Europe</a></div>
+            <div class="latest-item"><a href="#">❄️ Arctic blast to hit northern states</a></div>
+            <div class="latest-item"><a href="#">🔥 Wildfire risk elevated in California</a></div>
+            <div class="latest-item"><a href="#">🌪️ Tornado season starts early in midwest</a></div>
+            <div class="latest-item"><a href="#">🌧️ Record rainfall in Southeast Asia</a></div>
+            <div class="latest-item"><a href="#">☀️ Drought emergency declared in Spain</a></div>
+            <div class="latest-item"><a href="#">🌨️ Heavy snowfall disrupts UK travel</a></div>
+        </aside>
+    </section>
+
+    <section class="container">
+        <div class="news-grid">
+            <div class="news-article">
+                <img src="https://i0.wp.com/reduceflooding.com/wp-content/uploads/2025/05/20250522-2025-Hurricane-Outlook-PIE-Chart-Final-01.jpg?fit=1024%2C576&ssl=1" alt="Hurricane">
+                <div class="news-article-content">
+                    <h3>Hurricane season outlook: above-average activity predicted</h3>
+                    <p>The National Hurricane Center forecasts an above-normal Atlantic hurricane season, with up to 20 named storms expected. Coastal residents are urged to review evacuation plans and emergency supplies well in advance.</p>
+                    <div class="news-meta">📅 1 hour ago | 🌀 Hurricanes</div>
+                </div>
+            </div>
+            <div class="news-article">
+                <img src="https://img-cdn.oliveoiltimes.com/media/2023/06/2550.jpg" alt="Drought">
+                <div class="news-article-content">
+                    <h3>Severe drought threatens crops across Mediterranean region</h3>
+                    <p>Farmers in Spain, Italy, and Greece face devastating losses as an extended drought enters its third consecutive year. Agricultural ministers call for emergency EU support funds to stabilize food supply chains.</p>
+                    <div class="news-meta">📅 4 hours ago | 🌵 Drought</div>
+                </div>
+            </div>
+            <div class="news-article">
+                <img src="https://thehill.com/wp-content/uploads/sites/2/2024/09/66e92965335b76.66001626.jpeg?w=1280" alt="Flooding">
+                <div class="news-article-content">
+                    <h3>Unprecedented flooding displaces thousands in central Europe</h3>
+                    <p>Rivers across Germany, Austria, and the Czech Republic have burst their banks following weeks of heavy rainfall, displacing over 40,000 residents and causing billions in infrastructure damage.</p>
+                    <div class="news-meta">📅 8 hours ago | 🌊 Flooding</div>
+                </div>
+            </div>
+            <div class="news-article">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdWbgfDnjCGGx87y-1nd7P9wGXdt8UOC2QYw&s" alt="Climate">
+                <div class="news-article-content">
+                    <h3>Scientists confirm 2024 was the hottest year in recorded history</h3>
+                    <p>Data from NASA and NOAA confirm that global average temperatures in 2024 exceeded previous records by a significant margin, intensifying calls for urgent international action on greenhouse gas emissions.</p>
+                    <div class="news-meta">📅 1 day ago | 🌡️ Climate</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="latest-sub-news">
+            <div class="latest-sub-item">
+                <img src="https://media.cnn.com/api/v1/images/stellar/prod/still-20752432-1508014-542-still.jpg?c=16x9&q=w_1280,c_fill" alt="Storm">
+                <p>Category 4 storm approaches Caribbean islands</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://cdn.jwplayer.com/v2/media/1I8t6id1/thumbnails/fqsss9x9.jpg" alt="Climate">
+                <p>WMO issues urgent climate red alert for 2025</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://gdb.voanews.com/01000000-0aff-0242-502b-08dcc29cbb95_w1200_h630.jpg" alt="Flood">
+                <p>Monsoon floods affect over 2 million in Bangladesh</p>
+            </div>
+            <div class="latest-sub-item">
+                <img src="https://i.guim.co.uk/img/media/fcdf8082bdb353b3e432683c7b8d85d06a9464a3/0_250_5720_3434/master/5720.jpg?width=465&dpr=1&s=none&crop=none" alt="Agriculture">
+                <p>Heatwave damages harvest across southern France</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">
+            <h1><a href="news.html" style="color: #FFFFFF; text-decoration: none;">404News</a></h1>
+        </div>
+        <div class="footer-follow">
+            <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i> Facebook</a>
+            <a href="https://www.x.com/"><i class="fab fa-x-twitter"></i> X</a>
+            <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i> Instagram</a>
+        </div>
+        <p>© 2025 404News Website | Educational Project</p>
+    </footer>
+
+    <script>
+        /* Navbar search */
+        const searchIcon = document.getElementById("searchIcon");
+        const searchInput = document.getElementById("searchInput");
+        searchIcon.addEventListener("click", () => {
+            searchInput.style.display = searchInput.style.display === "block" ? "none" : "block";
+            if (searchInput.style.display === "block") searchInput.focus();
+        });
+
+        /* Weather */
+        const API_KEY = "bd5e378503939ddaee76f12ad7a97608";
+        const weatherIcons = {
+            "Clear":"☀️","Clouds":"⛅","Rain":"🌧️","Drizzle":"🌦️",
+            "Thunderstorm":"⛈️","Snow":"❄️","Mist":"🌫️","Fog":"🌫️",
+            "Haze":"🌫️","Dust":"💨","Sand":"💨","Smoke":"💨","Tornado":"🌪️"
+        };
+        const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+
+        async function getWeather() {
+            const city = document.getElementById("cityInput").value.trim();
+            if (!city) return;
+            const loadingMsg = document.getElementById("loadingMsg");
+            const errorMsg   = document.getElementById("errorMsg");
+            loadingMsg.style.display = "block";
+            errorMsg.style.display   = "none";
+
+            try {
+                const res  = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`);
+                if (!res.ok) throw new Error("not found");
+                const data = await res.json();
+
+                document.getElementById("weatherIcon").textContent  = weatherIcons[data.weather[0].main] || "🌡️";
+                document.getElementById("weatherTemp").innerHTML    = `${Math.round(data.main.temp)}<sup>°C</sup>`;
+                document.getElementById("weatherCity").textContent  = `${data.name}, ${data.sys.country}`;
+                document.getElementById("weatherDesc").textContent  = data.weather[0].description;
+                document.getElementById("humidity").textContent     = `${data.main.humidity}%`;
+                document.getElementById("wind").textContent         = `${Math.round(data.wind.speed * 3.6)} km/h`;
+                document.getElementById("feelsLike").textContent    = `${Math.round(data.main.feels_like)}°C`;
+
+                const fRes  = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`);
+                const fData = await fRes.json();
+
+                const daily = {};
+                fData.list.forEach(item => {
+                    const date = item.dt_txt.split(" ")[0];
+                    const hour = item.dt_txt.split(" ")[1];
+                    if (!daily[date] && hour >= "11:00:00") daily[date] = item;
+                });
+
+                document.getElementById("forecastList").innerHTML = Object.values(daily).slice(0, 5).map((item, i) => {
+                    const d = new Date(item.dt * 1000);
+                    const dayName = i === 0 ? "Today" : i === 1 ? "Tomorrow" : days[d.getDay()];
+                    return `<div class="forecast-item">
+                        <span class="forecast-day">${dayName}</span>
+                        <span class="forecast-icon">${weatherIcons[item.weather[0].main] || "🌡️"}</span>
+                        <span class="forecast-desc">${item.weather[0].description}</span>
+                        <span class="forecast-temps">${Math.round(item.main.temp_max)}° <span class="low">${Math.round(item.main.temp_min)}°</span></span>
+                    </div>`;
+                }).join("");
+
+                loadingMsg.style.display = "none";
+            } catch(e) {
+                loadingMsg.style.display = "none";
+                errorMsg.style.display   = "block";
+            }
+        }
+
+        document.getElementById("cityInput").addEventListener("keydown", e => {
+            if (e.key === "Enter") getWeather();
+        });
+    </script>
+</body>
+</html>
